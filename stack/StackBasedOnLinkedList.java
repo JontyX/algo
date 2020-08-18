@@ -1,9 +1,9 @@
 /**
  * @Author: JontyX
  */
-public class StackBasedOnLinkedList {
+public class StackBasedOnLinkedList<E> {
 
-    private Node top = null;
+    private Node<E> top = null;
 
     public void push(int val){
         Node newNode = new Node(val, null);
@@ -16,20 +16,19 @@ public class StackBasedOnLinkedList {
         }
     }
 
-    public int pop() {
+    public E pop() {
         if (top == null){
             throw new RuntimeException("栈为空");
         }
-        int value = top.data;
+        E value = top.data;
         top = top.next;
         return value;
     }
 
-    private static class Node {
-        int data;
+    private static class Node<E> {
+        E data;
         Node next;
-
-        public Node(int data, Node next) {
+        public Node(E data, Node next) {
             this.data = data;
             this.next = next;
         }
