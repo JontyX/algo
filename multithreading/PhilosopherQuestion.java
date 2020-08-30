@@ -22,13 +22,13 @@ public class PhilosopherQuestion {
         public void run() {
             while (!Thread.currentThread().isInterrupted()){
                 try {
-                    mutex.acquire();
+//                    mutex.acquire();
                     fork[i].acquire();
                     fork[(i+1) % 5].acquire();
                     System.out.println("哲学家 " + i + " 正在吃饭");
                     fork[(i+1) % 5].release();
                     fork[i].release();
-                    mutex.release();
+//                    mutex.release();
                     Thread.sleep(500);
                     Thread.yield();
                 }catch (InterruptedException e){
