@@ -20,15 +20,37 @@ public class PhilosopherQuestion {
 
         @Override
         public void run() {
+//            while (!Thread.currentThread().isInterrupted()){
+//                try {
+//                    mutex.acquire();
+//                    fork[i].acquire();
+//                    fork[(i+1) % 5].acquire();
+//                    System.out.println("哲学家 " + i + " 正在吃饭");
+//                    fork[(i+1) % 5].release();
+//                    fork[i].release();
+//                    mutex.release();
+//                    Thread.sleep(500);
+//                    Thread.yield();
+//                }catch (InterruptedException e){
+//                    break;
+//                }
+//            }
+
             while (!Thread.currentThread().isInterrupted()){
                 try {
-                    mutex.acquire();
-                    fork[i].acquire();
-                    fork[(i+1) % 5].acquire();
+                    if (i % 2 == 0){
+                        fork[i].acquire();
+                        fork[(i+1) % 5].acquire();
+
+                    }else {
+                        fork[(i+1) % 5].acquire();
+                        fork[i].acquire();
+                    }
+
                     System.out.println("哲学家 " + i + " 正在吃饭");
                     fork[(i+1) % 5].release();
                     fork[i].release();
-                    mutex.release();
+
                     Thread.sleep(500);
                     Thread.yield();
                 }catch (InterruptedException e){
@@ -46,7 +68,7 @@ public class PhilosopherQuestion {
         for (int i = 0; i < 5; i++) {
             ex.execute(new Philosopher(i));
         }
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         for (int i = 0; i < 5; i++) {
             ex.shutdownNow();
         }
