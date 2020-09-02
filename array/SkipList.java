@@ -5,7 +5,9 @@ import java.util.Random;
  */
 public class SkipList {
 
+    // 最大层数
     private static final int MAX_LEVEL = 16;
+    // 当前层数
     private int levelCount = 1;
 
 
@@ -29,6 +31,7 @@ public class SkipList {
 
     public void insert(int value) {
         int level = head.forwards[0] == null ? 1 : randomLevel();
+        // 随机层数大于当前层数,则加1,避免随机层数过大
         if (level > levelCount) {
             level = ++levelCount;
         }
@@ -45,13 +48,16 @@ public class SkipList {
                 // 找到前一节点
                 p = p.forwards[i];
             }
+            // 保存每一层的前面一个节点
             if (level > i) {
                 update[i] = p;
             }
-
         }
+
         for (int i = 0; i < level; ++i) {
+            // 把原来前一个节点的后继指针赋给新节点
             newNode.forwards[i] = update[i].forwards[i];
+            // 指向新节点
             update[i].forwards[i] = newNode;
         }
 
@@ -65,16 +71,19 @@ public class SkipList {
             while (p.forwards[i] != null && p.forwards[i].data < value) {
                 p = p.forwards[i];
             }
+
             update[i] = p;
         }
 
         if (p.forwards[0] != null && p.forwards[0].data == value) {
             for (int i = levelCount - 1; i >= 0; --i) {
+                // 从上往下开始更新
                 if (update[i].forwards[i] != null && update[i].forwards[i].data == value) {
                     update[i].forwards[i] = update[i].forwards[i].forwards[i];
                 }
             }
         }
+
     }
 
 
