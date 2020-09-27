@@ -141,10 +141,54 @@ public class Sort {
         }
     }
 
+    public static void bucketSort(int[] arr){
+        if (arr == null || arr.length < 2) return;
+        int offset = 0, min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for (int num : arr){
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+        }
+        int[] bucket = new int[max - min];
+        if (min < 0){
+            offset = -min;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            bucket[arr[i] + offset]++;
+        }
+        int index = 0;
+        for (int j = 0; j < bucket.length; j++) {
+            while (bucket[j]-- > 0){
+                arr[index++] = j - offset;
+            }
+        }
+    }
+
+    public static void shellSort(int[] arr){
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        int gap = arr.length;
+        while (true){
+            gap /= 2;
+            for (int i = 0; i < gap; i++){
+                for (int j = i; j < arr.length; j = j + gap) {
+                    int temp = arr[j];
+                    int k = j - gap;
+                    for (; k >= 0 && arr[k] > temp; k = k - gap){
+                        arr[k + gap] = arr[k];
+                    }
+                    arr[k + gap] = temp;
+                }
+            }
+            if (gap == 1){
+                break;
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        int[] a = new int[]{1, 3, -1, 1, 5, 9, 4, -2, 2, 2, 2,2 ,2 , 2, 2, 2, 2, 2, 3, 10, 12, 1, 0, 5, 3, 2};
-        heapSort(a);
+        int[] a = new int[]{0, -2, -1, 3, 2, 2, 1};
+        shellSort(a);
         System.out.println(Arrays.toString(a));
     }
 }
