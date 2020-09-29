@@ -2,21 +2,26 @@ public abstract class AbstractList<E> implements List<E>{
 
     protected int size;
 
-    // 下标越界抛出的异常
-    protected void outOfBounds(int index) {
-        throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
+    private boolean isElementIndex(int index){
+        return index >= 0 && index < size;
     }
-    // 检查下标越界(不可访问或删除size位置)
-    protected void rangeCheck(int index){
-        if(index < 0 || index >= size){
-            outOfBounds(index);
-        }
+
+    private boolean isPositionIndex(int index){
+        return index >= 0 && index <= size;
     }
-    // 检查add()的下标越界(可以在size位置添加元素)
-    protected void rangeCheckForAdd(int index) {
-        if (index < 0 || index > size) {
-            outOfBounds(index);
-        }
+
+    protected String outOfBoundsMsg(int index) {
+        return "Index: "+index+", Size: "+size;
+    }
+
+    protected void checkElementIndex(int index) {
+        if (!isElementIndex(index))
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+    }
+
+    protected void checkPositionIndex(int index) {
+        if (!isPositionIndex(index))
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
     }
 
     @Override
