@@ -1,5 +1,3 @@
-import org.omg.CORBA.OBJ_ADAPTER;
-
 import java.util.NoSuchElementException;
 
 public class DoublyLinkedList {
@@ -13,7 +11,7 @@ public class DoublyLinkedList {
     public DoublyLinkedList(){
     }
 
-    void linkFist(Object e){
+    void linkFirst(Object e){
         Node f = first;
         Node newNode = new Node(null, e, f);
         first = newNode;
@@ -131,7 +129,7 @@ public class DoublyLinkedList {
 
 
     public void addFirst(Object e){
-        linkFist(e);
+        linkFirst(e);
     }
 
     public void addLast(Object e){
@@ -188,6 +186,7 @@ public class DoublyLinkedList {
     }
 
     public Object set(int index, Object element){
+        checkElementIndex(index);
         Node x = node(index);
         Object oldVal = x.val;
         x.val = element;
@@ -195,7 +194,7 @@ public class DoublyLinkedList {
     }
 
     public void add(int index, Object element){
-
+        checkPositionIndex(index);
         if (index == size){
             linkLast(element);
         }else {
@@ -277,7 +276,4 @@ public class DoublyLinkedList {
             this.prev = prev;
         }
     }
-
-    // 1. 插入操作
-
 }

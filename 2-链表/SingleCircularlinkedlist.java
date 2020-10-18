@@ -1,4 +1,4 @@
-public class SingleCircularlinkedlist<E> extends AbstractList<E>{
+public class SingleCircularlinkedlist<E> extends AbstractList<E> {
 
     private Node<E> first;
 
@@ -122,5 +122,4 @@ public class SingleCircularlinkedlist<E> extends AbstractList<E>{
             return sb.toString();
         }
     }
-
 }

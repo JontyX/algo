@@ -146,6 +146,23 @@ public class CircleLinkedList<E> extends AbstractList<E> {
         }
     }
 
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("[size=").append(size).append(", ");
+        Node<E> node = first;
+        for (int i = 0; i < size; i++) {
+            if (i != 0) {
+                string.append(", ");
+            }
+            string.append(node);
+            node = node.next;
+        }
+        string.append("]");
+        return string.toString();
+    }
+
     private static class Node<E> {
         E element;
         Node<E> prev;
@@ -171,7 +188,6 @@ public class CircleLinkedList<E> extends AbstractList<E> {
             } else {
                 sb.append("null");
             }
-
             return sb.toString();
         }
     }
