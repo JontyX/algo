@@ -61,8 +61,11 @@
 
 - [x] 字典树优化: 三向单词查找树
 
-- [x] Mnuth-Morris-Pratt 字符串查找算法
+- [x] Mnuth-Morris-Pratt
 
+- [x] Boyer-Moore
+
+- [x] Rabin-Karp 指纹字符串查找算法
 
 ### 集合
 
